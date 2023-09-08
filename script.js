@@ -22,7 +22,7 @@ function initialize() {
 
         const map = new google.maps.Map(document.getElementById(fieldKey + '-map'), {
             center: {lat: latitude, lng: longitude},
-            zoom: 13
+            zoom: 16
         });
         const marker = new google.maps.Marker({
             map: map,
@@ -43,7 +43,7 @@ function initialize() {
         const marker = autocompletes[i].marker;
 
         google.maps.event.addListener(autocomplete, 'place_changed', function () {
-            marker.setVisible(false);
+            marker.setVisible(true);
             const place = autocomplete.getPlace();
 
             geocoder.geocode({'placeId': place.place_id}, function (results, status) {
@@ -69,6 +69,11 @@ function initialize() {
             marker.setPosition(place.geometry.location);
             marker.setVisible(true);
 
+            console.log(place);
+            console.log(place.formatted_address);
+
+            // TO DB: place.formatted_address as the address
+
         });
     }
 }
@@ -80,4 +85,6 @@ function setLocationCoordinates(key, lat, lng) {
     longitudeField.value = lng;
 
     console.log(lat + ' '+ lng);
+
+    // TO DB: lat as the latitude, lng as the longitude.
 }
